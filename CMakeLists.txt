@@ -24,7 +24,6 @@ set(FREYA_BUILD_TESTBED OFF)
 FetchContent_Declare(
   freya
   GIT_REPOSITORY https://github.com/FrodoAlaska/Freya.git 
-  GIT_TAG        4189ba6c3415c3f2343ccd81a4f36b89a5314076
 )
 
 FetchContent_MakeAvailable(freya)
