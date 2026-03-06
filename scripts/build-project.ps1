@@ -9,8 +9,7 @@ $build_flags  = ""
 $assets_dir   = "..\assets"
 $project_name = "FreyaProjectTemplate" # @TODO: Change the name of the project here...
 
-$can_run_project   = $false
-$can_reload_res = $false
+$can_run_project = $false
 
 ### Variables ###
 
@@ -41,7 +40,6 @@ function Show-Help {
   Log-Msg -msg "   --rel            = Build for the release configuration"       -log_level "WARN"
   Log-Msg -msg "   --jobs [threads] = Threads to use when building"              -log_level "WARN"
   Log-Msg -msg "   --run-project    = Run/execute the project"                   -log_level "WARN"
-  Log-Msg -msg "   --reload-res     = Reload the resources in the .nbrlist file" -log_level "WARN"
   Log-Msg -msg "   --help           = Display this help message"                 -log_level "WARN"
 }
 
@@ -96,7 +94,6 @@ for ($i = 0; $i -lt $Args.Count; $i++) {
     "--rel"         { Check-Build-Dir $build_dir; $build_config = "Release" }
     "--jobs"        { $i++; $build_flags += "--parallel $($args[$i])" }
     "--run-project" { $can_run_project = $true }
-    "--reload-res"  { $can_reload_res = $true }
     "--help"        { Show-Help; exit 1 }
     Default { 
       Log-Msg -msg "Invalid argument '$arg' passed" -log_level "ERROR"; 
@@ -121,11 +118,6 @@ cd $working_dir
 ### Build ### 
 
 ### Run ### 
-
-if($can_reload_res) {
-  & nbr "-pd $resources_dir -bd $build_dir\res $resources_dir\resource_list.nbrlist"
-  Check-Exit-Code -msg "Failed to reload resources..."
-}
 
 if ($can_run_project) {
   cd $build_dir
